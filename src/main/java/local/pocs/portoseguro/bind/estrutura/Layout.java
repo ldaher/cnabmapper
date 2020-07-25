@@ -1,6 +1,6 @@
 package local.pocs.portoseguro.bind.estrutura;
 
-import local.pocs.portoseguro.enums.FormatoEnum;
+import local.pocs.portoseguro.annotations.enums.FormatoEnum;
 
 public class Layout {
 

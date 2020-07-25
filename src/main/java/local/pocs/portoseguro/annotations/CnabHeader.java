@@ -7,7 +7,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import local.pocs.portoseguro.enums.FormatoEnum;
+import local.pocs.portoseguro.annotations.enums.FormatoEnum;
 
 /**
  * Indica que um campo representa um determinado valor no
