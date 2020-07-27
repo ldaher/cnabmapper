@@ -7,6 +7,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import local.pocs.portoseguro.annotations.enums.ConteudoEnum;
 import local.pocs.portoseguro.annotations.enums.FormatoEnum;
 
 /**
@@ -44,4 +45,6 @@ public @interface CnabHeader {
 	
 	public int digitos();
 	
+	public ConteudoEnum conteudo() default ConteudoEnum.OPCIONAL;
+		
 }
