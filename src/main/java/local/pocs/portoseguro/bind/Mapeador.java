@@ -14,34 +14,9 @@ import local.pocs.portoseguro.exceptions.PatternNotFoundException;
 
 public class Mapeador {
 
-	private <T> List<Layout> layout(Class<T> clazz) {
-		List<Layout> layouts = new ArrayList<Layout>();
-
-		for (Field f : clazz.getDeclaredFields()) {
-			f.setAccessible(true);
-			if (f.isAnnotationPresent(CnabHeader.class)) {
-				CnabHeader cnabHeader = f.getAnnotation(CnabHeader.class);
-
-				Layout layout = new Layout();
-
-				layout.setNomeCampo(f.getName());
-				layout.setOrdem(cnabHeader.ordem() != 0 ? cnabHeader.ordem() : 0);
-				layout.setDigitos(cnabHeader.digitos() != 0 ? cnabHeader.digitos() : 0);
-				layout.setDe(cnabHeader.posicao() != null ? cnabHeader.posicao().de() : 0);
-				layout.setAte(cnabHeader.posicao() != null ? cnabHeader.posicao().ate() : 0);
-				layout.setExpReg(cnabHeader.expReg().isEmpty() ? "" : cnabHeader.expReg());
-				layout.setFormato(cnabHeader.formato() != null ? cnabHeader.formato() : FormatoEnum.NUMERICO);
-
-				layouts.add(layout);
-			}
-		}
-
-		return layouts;
-	}
-
 	public <T> T lerValor(String conteudo, Class<T> clazz)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException, PatternNotFoundException, FormatNotMatchException {
-		List<Layout> layouts = layout(clazz);
+		List<Layout> layouts = this.layout(clazz);
 
 		T instance = clazz.newInstance();
 		
@@ -84,5 +59,30 @@ public class Mapeador {
 		}
 
 		return instance;
+	}
+
+	private <T> List<Layout> layout(Class<T> clazz) {
+		List<Layout> layouts = new ArrayList<Layout>();
+	
+		for (Field f : clazz.getDeclaredFields()) {
+			f.setAccessible(true);
+			if (f.isAnnotationPresent(CnabHeader.class)) {
+				CnabHeader cnabHeader = f.getAnnotation(CnabHeader.class);
+	
+				Layout layout = new Layout();
+	
+				layout.setNomeCampo(f.getName());
+				layout.setOrdem(cnabHeader.ordem() != 0 ? cnabHeader.ordem() : 0);
+				layout.setDigitos(cnabHeader.digitos() != 0 ? cnabHeader.digitos() : 0);
+				layout.setDe(cnabHeader.posicao() != null ? cnabHeader.posicao().de() : 0);
+				layout.setAte(cnabHeader.posicao() != null ? cnabHeader.posicao().ate() : 0);
+				layout.setExpReg(cnabHeader.expReg().isEmpty() ? "" : cnabHeader.expReg());
+				layout.setFormato(cnabHeader.formato() != null ? cnabHeader.formato() : FormatoEnum.NUMERICO);
+	
+				layouts.add(layout);
+			}
+		}
+	
+		return layouts;
 	}
 }
