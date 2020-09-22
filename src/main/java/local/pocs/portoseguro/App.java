@@ -1,5 +1,7 @@
 package local.pocs.portoseguro;
 
+import java.lang.reflect.InvocationTargetException;
+
 import local.pocs.portoseguro.bind.Mapeador;
 import local.pocs.portoseguro.entities.Header;
 import local.pocs.portoseguro.exceptions.FormatNotMatchException;
@@ -15,7 +17,7 @@ public class App {
 			
 			System.out.println(header);
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException
-				| InstantiationException | PatternNotFoundException | FormatNotMatchException e) {
+				| InstantiationException | PatternNotFoundException | FormatNotMatchException | InvocationTargetException | NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 		

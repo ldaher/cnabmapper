@@ -1,6 +1,7 @@
 package local.pocs.portoseguro.bind;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -15,10 +16,10 @@ import local.pocs.portoseguro.exceptions.PatternNotFoundException;
 public class Mapeador {
 
 	public <T> T lerValor(String conteudo, Class<T> clazz)
-			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException, PatternNotFoundException, FormatNotMatchException {
+			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InstantiationException, PatternNotFoundException, FormatNotMatchException, InvocationTargetException, NoSuchMethodException {
 		List<Layout> layouts = this.layout(clazz);
 
-		T instance = clazz.newInstance();
+		T instance = clazz.getDeclaredConstructor().newInstance();
 		
 		for (Layout layout : layouts) {
 			Field field = clazz.getDeclaredField(layout.getNomeCampo());
